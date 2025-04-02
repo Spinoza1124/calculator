@@ -2,27 +2,30 @@ package calculator
 
 import (
 	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/widget"
-	"golang.org/x/sys/windows"
 )
 
 type Calculator struct {
 	Equation string
 	Display  *widget.Label
-	windows  fyne.Window
+	Window   fyne.Window
 }
 
 func NewCalculator() *Calculator {
 	app := app.New()
 	window := app.NewWindow("Go 计算器")
-	window.Resize(fyne.NewSize(300, 400))
+	window.Resize(fyne.NewSize(200, 200))
 
 	display := widget.NewLabel("0")
 	display.Alignment = fyne.TextAlignTrailing
-	display.TextStyle = fyne.TextStyle{Monspace: true}
+	display.TextStyle = fyne.TextStyle{Monospace: true}
 
-	return &Calculator{
+	calc := &Calculator{
 		Display: display,
-		windows: window,
+		Window:  window,
 	}
+
+	calc.SetupUI()
+	return calc
 }

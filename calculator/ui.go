@@ -6,7 +6,7 @@ import (
 
 func (c *Calculator) SetupUI() {
 	buttons := c.createButtons()
-	content := container.NewVbox(
+	content := container.NewVBox(
 		c.Display,
 		container.NewGridWithColumns(1, buttons...),
 	)

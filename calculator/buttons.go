@@ -8,10 +8,9 @@ import (
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/widget"
-	"github.com/yuin/goldmark/text"
 )
 
-func (c *Calculator) creatButtons() []fyne.CanvasObject {
+func (c *Calculator) createButtons() []fyne.CanvasObject {
 	buttons := []struct {
 		label    string
 		onTapped func()
@@ -19,23 +18,23 @@ func (c *Calculator) creatButtons() []fyne.CanvasObject {
 		{"C", c.Clear},
 		{"√", c.Sqrt},
 		{"^", c.Power},
-		{"%", c.Module},
+		{"%", c.Modulo},
 		{"7", func() { c.AppendNumber("7") }},
 		{"8", func() { c.AppendNumber("8") }},
 		{"9", func() { c.AppendNumber("9") }},
-		{"/", func() { c.AppendNumber("/") }},
+		{"/", func() { c.AppendOperator("/") }},
 		{"4", func() { c.AppendNumber("4") }},
 		{"5", func() { c.AppendNumber("5") }},
 		{"6", func() { c.AppendNumber("6") }},
-		{"*", func() { c.AppendNumber("*") }},
+		{"*", func() { c.AppendOperator("*") }},
 		{"1", func() { c.AppendNumber("1") }},
 		{"2", func() { c.AppendNumber("2") }},
 		{"3", func() { c.AppendNumber("3") }},
-		{"-", func() { c.AppendNumber("-") }},
+		{"-", func() { c.AppendOperator("-") }},
 		{"0", func() { c.AppendNumber("0") }},
-		{".", func() { c.AppendNumber(".") }},
-		{"=", func() { c.AppendNumber("+") }},
-		{"+", func() { c.AppendNumber("+") }},
+		{".", c.AppendDecimal},
+		{"=", c.Calculate},
+		{"+", func() { c.AppendOperator("+") }},
 	}
 
 	var buttonWidgets []fyne.CanvasObject
@@ -56,7 +55,7 @@ func (c *Calculator) AppendNumber(num string) {
 }
 
 func (c *Calculator) AppendDecimal() {
-	if !string.Contains(c.Display.Text, ".") {
+	if !strings.Contains(c.Display.Text, ".") {
 		c.Display.SetText(c.Display.Text + ".")
 	}
 }
@@ -103,10 +102,10 @@ func (c *Calculator) Sqrt() {
 	c.Display.SetText(fmt.Sprintf("%g", result))
 }
 
-func (c *Calculator) power() {
+func (c *Calculator) Power() {
 	c.AppendOperator("^")
 }
 
-func (c *Calculator) Module() {
+func (c *Calculator) Modulo() {
 	c.AppendOperator("%")
 }

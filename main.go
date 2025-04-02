@@ -1,7 +1,7 @@
 package main
 
 import (
-	"calculator/calculator"
+	"github.com/Spinoza1124/calculator/calculator"
 )
 
 func main() {
